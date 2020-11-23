@@ -3,8 +3,8 @@ const router = express.Router();
 const connection = require("../../db");
 const DB_NAME = "B4E_Ministry_Backend";
 const COLL_NAME = "VoteRequest";
-const voteCli = require("./vote-cli");
 var ObjectId = require("mongodb").ObjectId;
+const voteCli = require("./vote-cli");
 
 router.get("/vote-requests", async (req, res) => {
   try {
