@@ -1,8 +1,8 @@
-function sendAcceptVote() {
+function sendAcceptVote(publicKeyOfRequest, privateKey) {
   return Promise.resolve({ ok: true });
 }
 
-function sendDeclineVote() {
+function sendDeclineVote(publicKeyOfRequest, privateKey) {
   return Promise.resolve({ ok: true });
 }
 
