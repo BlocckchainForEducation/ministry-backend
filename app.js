@@ -7,6 +7,9 @@ require("dotenv").config();
 const cors = require("cors");
 app.use(cors());
 
+const accRouter = require("./routes/user-mng/acc-mng-router");
+app.use("/acc", accRouter);
+
 const votingRouter = require("./routes/voting/voting-router");
 app.use("/voting", votingRouter);
 

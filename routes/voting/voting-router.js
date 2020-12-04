@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../../db");
-const DB_NAME = "B4E_Ministry_Backend";
+const { DB_NAME } = require("../../constance");
 const COLL_NAME = "VoteRequest";
 var ObjectId = require("mongodb").ObjectId;
 const voteCli = require("./vote-cli");
+const { authen } = require("../user-mng/protect-middleware");
 
-router.get("/vote-requests", async (req, res) => {
+router.get("/vote-requests", authen, async (req, res) => {
   try {
     const col = (await connection).db(DB_NAME).collection(COLL_NAME);
     const state = req.query.state;
@@ -54,21 +55,21 @@ router.get("/vote-requests", async (req, res) => {
 //   }
 // });
 
-router.post("/vote", async (req, res) => {
+router.post("/vote", authen, async (req, res) => {
   try {
     const vote = req.query.vote;
     const _id = req.query._id;
     if (!vote || !_id) {
-      return res.status(400).json({ ok: false, msg: "vote and _id is require" });
+      return res.status(400).json({ ok: false, msg: "vote and _id is require!" });
     }
     let opResult;
 
-    if (vote === "accept") {
+    if (vote !== "accept" && vote != "decline") {
+      return res.status(400).json({ ok: false, msg: "vote == accept || vote == decline!" });
+    } else if (vote === "accept") {
       opResult = await voteCli.sendAcceptVote();
     } else if (vote === "decline") {
       opResult = await voteCli.sendDeclineVote();
-    } else {
-      return res.status(400).json({ ok: false, msg: "vote == accept || vote == decline" });
     }
 
     if (opResult.ok) {
