@@ -2,7 +2,6 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const connection = require("../../db");
-const { DB_NAME } = require("../../constance");
 const ACC_COLL_NAME = "Account";
 const { signUpSchema, signInSchema } = require("./schema");
 
@@ -20,7 +19,7 @@ router.post("/signup", async (req, res) => {
     }
 
     // check if email exists
-    const col = (await connection).db(DB_NAME).collection(ACC_COLL_NAME);
+    const col = (await connection).db().collection(ACC_COLL_NAME);
     const emailExist = await col.findOne({ email: req.body.email });
     if (emailExist) return res.status(400).json({ email: "Email already exists!" });
 
@@ -53,7 +52,7 @@ router.post("/signin", async (req, res) => {
     }
 
     // check if account exists
-    const col = (await connection).db(DB_NAME).collection(ACC_COLL_NAME);
+    const col = (await connection).db().collection(ACC_COLL_NAME);
     const acc = await col.findOne({ email: req.body.email });
     if (!acc) return res.status(400).json({ email: "Account doesn't exists!" });
 
