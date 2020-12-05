@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../../db");
-const { DB_NAME } = require("../../constance");
 const COLL_NAME = "VoteRequest";
 const voteCli = require("./vote-cli");
 const { authen } = require("../user-mng/protect-middleware");
 
 router.get("/vote-requests", authen, async (req, res) => {
   try {
-    const col = (await connection).db(DB_NAME).collection(COLL_NAME);
+    const col = (await connection).db().collection(COLL_NAME);
     const state = req.query.state;
     let votes;
     if (state === "new") {
@@ -43,7 +42,7 @@ router.post("/vote", authen, async (req, res) => {
     }
 
     if (opResult.ok) {
-      const col = (await connection).db(DB_NAME).collection(COLL_NAME);
+      const col = (await connection).db().collection(COLL_NAME);
       const updateResult = await col.updateOne(
         { pubkey: publicKeyOfRequest },
         { $set: { state: decision === "accept" ? "accepted" : "declined", date: new Date().toISOString().split("T")[0] } }
