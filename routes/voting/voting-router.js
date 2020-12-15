@@ -58,12 +58,16 @@ router.post("/vote", authen, async (req, res) => {
 
 async function sendAcceptVote(publicKeyOfRequest, privateKeyHex) {
   const res = await axios.post("/create_vote", { publicKeyOfRequest, privateKeyHex, decision: "accept" });
+  // TODO: remove log
+  console.log(res.data);
   return res.data;
   // return Promise.resolve({ ok: true, txid: "asdf" });
 }
 
 async function sendDeclineVote(publicKeyOfRequest, privateKeyHex) {
   const res = await axios.post("/create_vote", { publicKeyOfRequest, privateKeyHex, decision: "decline" });
+  // TODO: remove log
+  console.log(res.data);
   return res.data;
   // return Promise.resolve({ ok: true, txid: "asdfasd" });
 }

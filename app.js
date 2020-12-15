@@ -13,10 +13,10 @@ const accRouter = require("./routes/user-mng/acc-mng-router");
 app.use("/acc", accRouter);
 
 const votingRouter = require("./routes/voting/voting-router");
-app.use("/voting", votingRouter);
+app.use(votingRouter);
 
 const universityRouter = require("./routes/university/university-list-router");
-app.use("/university", universityRouter);
+app.use(universityRouter);
 
 app.listen(8000, () => {
   console.log("App listening on port 8000!");
