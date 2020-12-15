@@ -61,7 +61,7 @@ async function sendAcceptVote(publicKeyOfRequest, privateKeyHex) {
   // TODO: remove log
   console.log(res.data);
   return res.data;
-  // return Promise.resolve({ ok: true, txid: "asdf" });
+  // return Promise.resolve({ ok: true, transactionId: "73caf158ebf0081445f40399d886b611b7e24f01da5" });
 }
 
 async function sendDeclineVote(publicKeyOfRequest, privateKeyHex) {
@@ -69,7 +69,7 @@ async function sendDeclineVote(publicKeyOfRequest, privateKeyHex) {
   // TODO: remove log
   console.log(res.data);
   return res.data;
-  // return Promise.resolve({ ok: true, txid: "asdfasd" });
+  // return Promise.resolve({ ok: true, transactionId: "63b4c70c6fe7445bdff460f71547155a138d12f1a9f" });
 }
 
 module.exports = router;
