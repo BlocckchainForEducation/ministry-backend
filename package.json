@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "set NODE_ENV=development&& nodemon app.js",
-    "start": "NODE_ENV=production pm2 -n ministry_backend app.js"
+    "startWindow": "set NODE_ENV=production&& pm2 -n ministry_backend start app.js",
+    "start": "NODE_ENV=production pm2 -n ministry_backend start app.js"
   },
   "author": "",
   "license": "ISC",
