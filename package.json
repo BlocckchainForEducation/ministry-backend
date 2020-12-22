@@ -4,8 +4,8 @@
   "description": "Backend for Ministry FE",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development nodemon app.js",
+    "start": "NODE_ENV=production pm2 -n ministry_backend app.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "sawtooth-sdk": "^1.0.5"
   },
   "devDependencies": {
-    "eslint": "^7.14.0"
+    "eslint": "^7.14.0",
+    "nodemon": "^2.0.6"
   }
 }
