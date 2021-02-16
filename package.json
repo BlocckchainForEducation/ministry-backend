@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "set NODE_ENV=development&& nodemon app.js",
+    "devx": "NODE_ENV=development nodemon app.js",
     "startWindow": "set NODE_ENV=production&& pm2 -n ministry_backend start app.js",
     "start": "NODE_ENV=production pm2 -n ministry_backend start app.js"
   },
@@ -18,8 +19,7 @@
     "express": "^4.17.1",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.6.3",
-    "sawtooth-sdk": "^1.0.5"
+    "mongodb": "^3.6.3"
   },
   "devDependencies": {
     "eslint": "^7.14.0",
