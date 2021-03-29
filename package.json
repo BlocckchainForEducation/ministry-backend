@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "set NODE_ENV=development&& nodemon app.js",
     "devx": "NODE_ENV=development nodemon app.js",
-    "start": "NODE_ENV=production pm2 -n ministry_backend-https start app-https.js"
+    "start-https": "NODE_ENV=production pm2 -n ministry_backend-https start app-https.js",
+    "start": "NODE_ENV=production pm2 -n ministry_backend start app"
   },
   "author": "",
   "license": "ISC",

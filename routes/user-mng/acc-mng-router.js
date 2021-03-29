@@ -34,7 +34,7 @@ router.post("/signup", async (req, res) => {
     const token = jwt.sign({ uid: result.insertedId }, process.env.TOKEN_SECRET);
     res.json({ token: token });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).send(error);
   }
 });
@@ -63,7 +63,7 @@ router.post("/signin", async (req, res) => {
     const token = jwt.sign({ uid: acc._id }, process.env.TOKEN_SECRET);
     res.json({ token: token });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json(error);
   }
 });

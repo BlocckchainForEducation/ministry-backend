@@ -19,7 +19,7 @@ router.get("/vote-requests", authen, async (req, res) => {
     }
     res.json(votes);
   } catch (error) {
-    res.status(500).json(error.toString());
+    res.status(500).send(error);
   }
 });
 
@@ -44,32 +44,32 @@ router.post("/vote", authen, async (req, res) => {
     if (opResult.ok) {
       const col = (await connection).db().collection(VOTE_REQUEST);
       const updateResult = await col.updateOne(
-        { pubkey: publicKeyOfRequest },
-        { $set: { state: decision === "accept" ? "accepted" : "declined", date: new Date().toISOString().split("T")[0], txid: opResult.transactionId } }
+        { publicKey: publicKeyOfRequest },
+        {
+          $set: {
+            state: decision === "accept" ? "accepted" : "declined",
+            date: new Date().toISOString().split("T")[0],
+            txid: opResult.transactionId,
+          },
+        }
       );
       res.json(updateResult);
     } else {
       res.status(500).json(opResult);
     }
   } catch (error) {
-    res.status(500).json(error.toString());
+    res.status(500).send(error);
   }
 });
 
 async function sendAcceptVote(publicKeyOfRequest, privateKeyHex) {
   const res = await axios.post("/create_vote", { publicKeyOfRequest, privateKeyHex, decision: "accept" });
-  // TODO: remove log
-  console.log(res.data);
   return res.data;
-  // return Promise.resolve({ ok: true, transactionId: "73caf158ebf0081445f40399d886b611b7e24f01da5" });
 }
 
 async function sendDeclineVote(publicKeyOfRequest, privateKeyHex) {
   const res = await axios.post("/create_vote", { publicKeyOfRequest, privateKeyHex, decision: "decline" });
-  // TODO: remove log
-  console.log(res.data);
   return res.data;
-  // return Promise.resolve({ ok: true, transactionId: "63b4c70c6fe7445bdff460f71547155a138d12f1a9f" });
 }
 
 module.exports = router;
