@@ -7,7 +7,7 @@
     "dev": "set NODE_ENV=development&& nodemon app.js",
     "devx": "NODE_ENV=development nodemon app.js",
     "start-https": "NODE_ENV=production pm2 -n ministry_backend-https start app-https.js",
-    "start": "NODE_ENV=production pm2 -n ministry_backend start app"
+    "start": "NODE_ENV=production pm2 -n ministry_backend start app.js"
   },
   "author": "",
   "license": "ISC",

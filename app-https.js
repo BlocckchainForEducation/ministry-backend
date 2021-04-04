@@ -12,18 +12,13 @@ axios.defaults.baseURL = process.env.REST_API_URL;
 const cors = require("cors");
 app.use(cors());
 
-const accRouter = require("./routes/user-mng/acc-mng-router");
-app.use("/acc", accRouter);
+app.use("/acc", require("./routes/user-mng/acc-mng-router"));
 
-const votingRouter = require("./routes/voting/voting-router");
-app.use(votingRouter);
+app.use(require("./routes/voting/voting-router"));
 
-const universityRouter = require("./routes/university/university-list-router");
-app.use(universityRouter);
+app.use(require("./routes/university/university-list-router"));
 
-// app.listen(8000, () => {
-//   console.log("App listening on port 8000!");
-// });
+const PORT = process.env.PORT || 8000;
 
 https
   .createServer(
@@ -33,6 +28,6 @@ https
     },
     app
   )
-  .listen(8000, () => {
-    console.log("App listening on port 8000!");
+  .listen(PORT, () => {
+    console.log(`B4E Ministry Backend listening on port ${PORT}!`);
   });
