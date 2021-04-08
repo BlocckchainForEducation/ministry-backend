@@ -1,5 +1,5 @@
 const express = require("express");
-const connection = require("../../../db");
+const connection = require("../../db");
 const router = express.Router();
 
 // FIXME: need authen, author too!
@@ -22,6 +22,7 @@ router.post("/registration", async (req, res) => {
   }
 });
 
+// TODO: need txid in req.body too!
 router.post("/vote", async (req, res) => {
   try {
     // console.log({ body: req.body });
@@ -54,7 +55,10 @@ router.post("/vote", async (req, res) => {
 router.post("/vote-closed", async (req, res) => {
   try {
     const universityColl = (await connection).db().collection("UniversityProfile");
-    await universityColl.updateOne({ publicKey: req.body.requesterPublicKey }, { $set: { state: req.body.finalState } });
+    await universityColl.updateOne(
+      { publicKey: req.body.requesterPublicKey },
+      { $set: { state: req.body.finalState, voteCloseDate: new Date().toISOString.split("T")[0] } }
+    );
 
     return res.send("ok");
   } catch (error) {

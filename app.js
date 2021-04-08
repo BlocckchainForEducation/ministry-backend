@@ -10,7 +10,7 @@ const { initMinistryAccount, initMinistryProfile } = require("./init");
 const cors = require("cors");
 app.use(cors());
 
-app.use("/api/v1.2/acc", require("./routes/user-mng/acc-mng-router"));
+app.use("/acc", require("./routes/user-mng/acc-mng-router"));
 app.use("/api/v1.2/events", require("./routes/events"));
 app.use("/api/v1.2", require("./routes/voting/voting-router"));
 app.use("/api/v1.2", require("./routes/university/university-list-router"));

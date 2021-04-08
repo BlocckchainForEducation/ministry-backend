@@ -29,12 +29,12 @@ router.get("/ballots", authen, async (req, res) => {
 router.post("/vote", authen, async (req, res) => {
   try {
     const decision = req.body.decision;
-    const publicKeyOfRequest = req.body.publicKeyOfRequest;
+    const requesterPublicKey = req.body.requesterPublicKey;
     const privateKeyHex = req.body.privateKeyHex;
 
     // validate
-    if (!decision || !publicKeyOfRequest || !privateKeyHex) {
-      return res.status(400).json({ ok: false, msg: "decision, publicKeyOfRequest, privateKeyHex is require!" });
+    if (!decision || !requesterPublicKey || !privateKeyHex) {
+      return res.status(400).json({ ok: false, msg: "decision, requesterPublicKey, privateKeyHex is require!" });
     }
     if (decision !== "accept" && decision != "decline") {
       return res.status(400).json({ ok: false, msg: "decision == accept || decision == decline!" });
@@ -42,14 +42,14 @@ router.post("/vote", authen, async (req, res) => {
 
     try {
       const response = await axios.post("/vote", {
-        publicKeyOfRequest,
+        requesterPublicKey,
         privateKeyHex,
         decision,
       });
 
       const col = (await connection).db().collection(BALLOT);
       const opResult = await col.updateOne(
-        { publicKey: publicKeyOfRequest },
+        { publicKey: requesterPublicKey },
         {
           $set: {
             state: decision === "accept" ? "accepted" : "declined",
