@@ -1,5 +1,14 @@
 const connection = require("./db");
 const bcrypt = require("bcryptjs");
+const ministryProfile = require("./resources/MinistryProfile.json");
+
+async function initMinistryProfile() {
+  const col = (await connection).db().collection("MinistryProfile");
+  const doc = await col.findOne({});
+  if (!doc) {
+    await col.insertOne(ministryProfile);
+  }
+}
 
 async function initMinistryAccount() {
   try {
@@ -17,4 +26,4 @@ async function initMinistryAccount() {
   }
 }
 
-module.exports = { initMinistryAccount };
+module.exports = { initMinistryProfile, initMinistryAccount };
