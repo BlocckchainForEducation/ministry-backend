@@ -5,6 +5,7 @@ app.use(express.urlencoded({ extended: false }));
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 const axios = require("axios").default;
 axios.defaults.baseURL = process.env.REST_API_URL;
+const { initMinistryAccount } = require("./init");
 
 const cors = require("cors");
 app.use(cors());
@@ -19,5 +20,6 @@ const universityRouter = require("./routes/university/university-list-router");
 app.use(universityRouter);
 
 app.listen(8000, () => {
+  initMinistryAccount();
   console.log("App listening on port 8000!");
 });

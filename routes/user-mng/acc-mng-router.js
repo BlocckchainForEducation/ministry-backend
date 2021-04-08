@@ -6,38 +6,38 @@ const ACC_COLL_NAME = "Account";
 const { signUpSchema, signInSchema } = require("./schema");
 
 // FIXME: in production, do not allow anyone signup for MINISTRY account!
-router.post("/signup", async (req, res) => {
-  try {
-    // validate submited data
-    const { error, value } = signUpSchema.validate(req.body, { abortEarly: false });
-    if (error) {
-      const errors = {};
-      for (let err of error.details) {
-        errors[err.context.key] = err.message;
-      }
-      return res.status(400).json(errors);
-    }
+// router.post("/signup", async (req, res) => {
+//   try {
+//     // validate submited data
+//     const { error, value } = signUpSchema.validate(req.body, { abortEarly: false });
+//     if (error) {
+//       const errors = {};
+//       for (let err of error.details) {
+//         errors[err.context.key] = err.message;
+//       }
+//       return res.status(400).json(errors);
+//     }
 
-    // check if email exists
-    const col = (await connection).db().collection(ACC_COLL_NAME);
-    const emailExist = await col.findOne({ email: req.body.email });
-    if (emailExist) return res.status(400).json({ email: "Email already exists!" });
+//     // check if email exists
+//     const col = (await connection).db().collection(ACC_COLL_NAME);
+//     const emailExist = await col.findOne({ email: req.body.email });
+//     if (emailExist) return res.status(400).json({ email: "Email already exists!" });
 
-    // hash pw and save new acc to db
-    const salt = await bcrypt.genSalt();
-    req.body.hashedPassword = await bcrypt.hash(req.body.password, salt);
-    delete req.body.password;
-    delete req.body.repassword;
-    const result = await col.insertOne(req.body);
+//     // hash pw and save new acc to db
+//     const salt = await bcrypt.genSalt();
+//     req.body.hashedPassword = await bcrypt.hash(req.body.password, salt);
+//     delete req.body.password;
+//     delete req.body.repassword;
+//     const result = await col.insertOne(req.body);
 
-    //send back token
-    const token = jwt.sign({ uid: result.insertedId }, process.env.TOKEN_SECRET);
-    res.json({ token: token });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error);
-  }
-});
+//     //send back token
+//     const token = jwt.sign({ uid: result.insertedId }, process.env.TOKEN_SECRET);
+//     res.json({ token: token });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send(error);
+//   }
+// });
 
 router.post("/signin", async (req, res) => {
   try {
