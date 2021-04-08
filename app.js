@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 const axios = require("axios").default;
 axios.defaults.baseURL = process.env.REST_API_URL;
+
 const { initMinistryAccount, initMinistryProfile } = require("./init");
 
 const cors = require("cors");
