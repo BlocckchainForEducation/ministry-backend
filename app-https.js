@@ -24,8 +24,8 @@ const PORT = process.env.PORT || 8000;
 https
   .createServer(
     {
-      key: fs.readFileSync("/etc/letsencrypt/live/ministry-backend.b4e.vn/privkey.pem"),
-      cert: fs.readFileSync("/etc/letsencrypt/live/ministry-backend.b4e.vn/fullchain.pem"),
+      key: fs.readFileSync("/app/privkey.pem"),
+      cert: fs.readFileSync("/app/fullchain.pem"),
     },
     app
   )
