@@ -3,7 +3,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
+// require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` }); // use docker-compose env_file to provide env variable
 const axios = require("axios").default;
 axios.defaults.baseURL = process.env.REST_API_URL;
 
@@ -17,8 +17,10 @@ app.use("/api/v1.2/events", require("./routes/events"));
 app.use("/api/v1.2", require("./routes/voting/voting-router"));
 app.use("/api/v1.2", require("./routes/university/university-list-router"));
 
-app.listen(8000, () => {
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
   initMinistryAccount();
   initMinistryProfile();
-  console.log("App listening on port 8000!");
+  console.log(`App listening on port ${PORT}!`);
 });
