@@ -5,7 +5,7 @@ var fs = require("fs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
+// require("dotenv").config({ path: `.env.production` }); // use docker compose env_file
 const axios = require("axios").default;
 axios.defaults.baseURL = process.env.REST_API_URL;
 
@@ -24,8 +24,8 @@ const PORT = process.env.PORT || 8000;
 https
   .createServer(
     {
-      key: fs.readFileSync("/app/privkey.pem"),
-      cert: fs.readFileSync("/app/fullchain.pem"),
+      key: fs.readFileSync("/run/secrets/privkey"), // use docker-compose secrets
+      cert: fs.readFileSync("/run/secrets/fullchain"), // use docker-compose secrets
     },
     app
   )
