@@ -57,7 +57,7 @@ router.post("/vote-closed", async (req, res) => {
     const universityColl = (await connection).db().collection("UniversityProfile");
     await universityColl.updateOne(
       { publicKey: req.body.requesterPublicKey },
-      { $set: { state: req.body.finalState, voteCloseDate: new Date().toISOString.split("T")[0] } }
+      { $set: { state: req.body.finalState, voteCloseDate: new Date().toISOString().split("T")[0] } }
     );
 
     return res.send("ok");
