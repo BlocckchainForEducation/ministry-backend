@@ -4,9 +4,8 @@
   "description": "Backend for Ministry",
   "main": "app.js",
   "scripts": {
-    "dev": "set NODE_ENV=development&& nodemon app.js",
     "devx": "NODE_ENV=development nodemon app.js",
-    "start-https": "NODE_ENV=production pm2 -n ministry_backend-https start app-https.js",
+    "start-https": "node app-https.js",
     "start": "node app.js"
   },
   "author": "",
@@ -19,8 +18,7 @@
     "express": "^4.17.1",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.6.3",
-    "pm2": "^4.5.6"
+    "mongodb": "^3.6.3"
   },
   "devDependencies": {
     "eslint": "^7.14.0",

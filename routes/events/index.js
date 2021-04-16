@@ -2,7 +2,7 @@ const express = require("express");
 const connection = require("../../db");
 const router = express.Router();
 
-// FIXME: need authen, author too!
+// FIXME: need authen, author too!!
 router.post("/registration", async (req, res) => {
   try {
     const profile = req.body.profile;
