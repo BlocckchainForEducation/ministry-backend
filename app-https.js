@@ -24,8 +24,8 @@ const PORT = process.env.PORT || 8000;
 https
   .createServer(
     {
-      key: fs.readFileSync("/run/secrets/privkey"), // use docker-compose secrets
-      cert: fs.readFileSync("/run/secrets/fullchain"), // use docker-compose secrets
+      key: fs.readFileSync("/etc/letsencrypt/live/ministry-backend.b4e.vn/privkey.pem"), // need bind mount
+      cert: fs.readFileSync("/etc/letsencrypt/live/ministry-backend.b4e.vn/fullchain.pem"), // need bind mount
     },
     app
   )
