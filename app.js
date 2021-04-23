@@ -3,7 +3,6 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` }); // use docker-compose env_file to provide env variable
 const axios = require("axios").default;
 axios.defaults.baseURL = process.env.REST_API_URL;
 
